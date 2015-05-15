@@ -9,5 +9,5 @@ A detailed explanation of [spiped](https://www.tarsnap.com/spiped.html) can be f
 Running spiped to take encrypted connections on port 8025 and forward them to port 25 on localhost looks like this:
 
 ```
-docker run -d -v /keyfile:/spiped/key:ro -p 8025:8025 timwolla/spiped -e -s '[0.0.0.0]:8025' -t '[127.0.0.1]:25'
+docker run -d -v /keyfile:/spiped/key:ro -p 8025:8025 timwolla/spiped -d -s '[0.0.0.0]:8025' -t '[127.0.0.1]:25'
 ```
