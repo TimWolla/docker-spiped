@@ -1,6 +1,15 @@
-#!/bin/sh
+#!/bin/bash
+set -e
 
-# docker/docker#7086
-trap "exit" 2 3 9 15
+if [ "${1:0:1}" = '-' ]; then
+	spiped -k /spiped/key -F $@ &
 
-spiped -k /spiped/key -F $@
+	# docker/docker#7086
+	trap "kill -TERM $!;" SIGTERM
+	trap "kill -INT $!;" SIGINT
+
+	wait $!
+	exit $?
+fi
+
+exec "$@"
