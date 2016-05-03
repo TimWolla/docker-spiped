@@ -30,7 +30,7 @@ RUN	buildDeps='libssl-dev gcc make curl ca-certificates patch' \
 VOLUME /spiped
 WORKDIR /spiped
 
-COPY entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["/entrypoint.sh"]
+COPY docker-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["spiped"]
