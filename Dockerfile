@@ -1,6 +1,9 @@
 FROM debian:jessie
 MAINTAINER Tim Düsterhus
 
+RUN	groupadd -r spiped \
+&&	useradd -r -g spiped spiped
+
 RUN	apt-get update \
 &&	apt-get install -y libssl1.0.0 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
