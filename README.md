@@ -1,4 +1,4 @@
-spiped
+spiped [![Build Status](https://travis-ci.org/TimWolla/docker-spiped.svg?branch=master)](https://travis-ci.org/TimWolla/docker-spiped)
 ======
 
 How to use this image
