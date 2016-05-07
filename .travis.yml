@@ -11,10 +11,10 @@ services:
 
 install:
   - docker pull buildpack-deps:curl
-  - make keyfile
 
 before_script:
   - image="spiped:${VERSION}${VARIANT:+-$VARIANT}"
+  - dd if=/dev/urandom bs=32 count=1 of=keyfile
 
 script:
   - docker build -t $image ${VERSION}${VARIANT:+/$VARIANT}
