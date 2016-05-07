@@ -1,6 +1,6 @@
 sudo: required
 
-language: c
+language: bash
 
 services:
   - docker
