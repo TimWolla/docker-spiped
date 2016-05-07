@@ -1,7 +1,7 @@
-#!/bin/bash
+#!/bin/sh
 set -e
 
-if [ "${1:0:1}" = '-' ]; then
+if [ ! -z "$(echo x$1 |awk '/^x-/')" ]; then
 	set -- spiped -k /spiped/key -F "$@"
 fi
 
