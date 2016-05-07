@@ -37,7 +37,7 @@ RUN	set -x \
 VOLUME /spiped
 WORKDIR /spiped
 
-COPY docker-entrypoint.sh /usr/local/bin/
+COPY *.sh /usr/local/bin/
 ENTRYPOINT ["docker-entrypoint.sh"]
 
 CMD ["spiped"]
