@@ -14,13 +14,13 @@ install:
 
 before_script:
   - image="spiped:${VERSION}${VARIANT:+-$VARIANT}"
-  - dd if=/dev/urandom bs=32 count=1 of=keyfile
 
 script:
   - docker build -t $image ${VERSION}${VARIANT:+/$VARIANT}
-  - docker run --name spiped_test_d -d -v $(pwd)/keyfile:/spiped/key:ro                                                 $image -d -s '[0.0.0.0]:8080' -t 'example.com:80'
-  - docker run --name spiped_test_e -d -v $(pwd)/keyfile:/spiped/key:ro -p 8080:8080 --link spiped_test_d:spiped_test_d $image -e -s '[0.0.0.0]:8080' -t 'spiped_test_d:8080'
-  - "docker run --name spiped_test_curl -it --rm --link spiped_test_e:spiped_test_e buildpack-deps:curl curl -fsSL -H 'Host: example.com' http://spiped_test_e:8080 |grep '<h1>Example Domain</h1>'"
+  - docker run -i --rm                 -v $(pwd):/spiped/key                                                                   $image spiped-generate-key.sh
+  - docker run --name spiped_test_d -d -v $(pwd)/spiped-keyfile:/spiped/key:ro                                                 $image -d -s '[0.0.0.0]:8080' -t 'example.com:80'
+  - docker run --name spiped_test_e -d -v $(pwd)/spiped-keyfile:/spiped/key:ro -p 8080:8080 --link spiped_test_d:spiped_test_d $image -e -s '[0.0.0.0]:8080' -t 'spiped_test_d:8080'
+  - "docker run --name spiped_test_curl -i --rm --link spiped_test_e:spiped_test_e buildpack-deps:curl curl -fsSL -H 'Host: example.com' http://spiped_test_e:8080 |grep '<h1>Example Domain</h1>'"
 
 after_script:
   - docker ps -a
