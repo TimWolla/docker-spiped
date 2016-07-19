@@ -1,4 +1,4 @@
-FROM alpine
+FROM alpine:3.4
 MAINTAINER Tim Düsterhus
 
 RUN	addgroup -S spiped \
