@@ -1,5 +1,4 @@
 FROM debian:jessie
-MAINTAINER Tim Düsterhus
 
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
