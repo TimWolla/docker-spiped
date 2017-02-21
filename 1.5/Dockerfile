@@ -15,7 +15,8 @@ ENV SPIPED_DOWNLOAD_SHA256 b2f74b34fb62fd37d6e2bfc969a209c039b88847e853a49e91768
 # Remove with spiped 1.6
 COPY	0001-Fix-docker-stop-issue.patch /0001-Fix-docker-stop-issue.patch
 
-RUN	buildDeps='libssl-dev gcc make curl ca-certificates patch' \
+RUN	set -x \
+&&	buildDeps='libssl-dev gcc make curl ca-certificates patch' \
 &&	apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/* \
 &&	curl -fsSL "$SPIPED_DOWNLOAD_URL" -o spiped.tar.gz \
