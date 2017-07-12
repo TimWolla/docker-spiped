@@ -1,10 +1,10 @@
-FROM debian:jessie
+FROM debian:stretch
 
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
 
 RUN	apt-get update \
-&&	apt-get install -y libssl1.0.0 --no-install-recommends \
+&&	apt-get install -y libssl1.1 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
 
 ENV SPIPED_VERSION 1.6.0
@@ -12,7 +12,7 @@ ENV SPIPED_DOWNLOAD_URL https://www.tarsnap.com/spiped/spiped-1.6.0.tgz
 ENV SPIPED_DOWNLOAD_SHA256 e6f7f8f912172c3ad55638af8346ae7c4ecaa92aed6d3fb60f2bda4359cba1e4
 
 RUN	set -x \
-&&	buildDeps='libssl-dev gcc make curl ca-certificates' \
+&&	buildDeps='libssl-dev libc-dev gcc make curl ca-certificates' \
 &&	apt-get update && apt-get install -y $buildDeps --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/* \
 &&	curl -fsSL "$SPIPED_DOWNLOAD_URL" -o spiped.tar.gz \
