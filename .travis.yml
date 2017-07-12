@@ -3,8 +3,9 @@ sudo: required
 language: bash
 
 env:
-  - VERSION=1.6 VARIANT=
-  - VERSION=1.6 VARIANT=alpine
+  - VERSION=1.6 VARIANT=       ARCH=
+  - VERSION=1.6 VARIANT=alpine ARCH=
+  - VERSION=1.6 VARIANT=       ARCH=i386
 
 services:
   - docker
@@ -14,6 +15,7 @@ install:
 
 before_script:
   - image="spiped:${VERSION}${VARIANT:+-$VARIANT}"
+  - "[ -n \"$ARCH\" ] && sed -i \"s!^FROM !FROM ${ARCH}/!\" ${VERSION}${VARIANT:+/$VARIANT}/Dockerfile || true"
 
 script:
   - docker build -t $image ${VERSION}${VARIANT:+/$VARIANT}
