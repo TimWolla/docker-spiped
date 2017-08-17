@@ -18,11 +18,11 @@ before_script:
   - "[ -n \"$ARCH\" ] && sed -i \"s!^FROM !FROM ${ARCH}/!\" ${VERSION}${VARIANT:+/$VARIANT}/Dockerfile || true"
 
 script:
-  - docker build -t $image ${VERSION}${VARIANT:+/$VARIANT}
-  - docker run -i --rm                 -v $(pwd):/spiped/key                                                                   $image spiped-generate-key.sh
-  - docker run --name spiped_test_d -d -v $(pwd)/spiped-keyfile:/spiped/key:ro                                                 $image -d -s '[0.0.0.0]:8080' -t 'example.com:80'
-  - docker run --name spiped_test_e -d -v $(pwd)/spiped-keyfile:/spiped/key:ro -p 8080:8080 --link spiped_test_d:spiped_test_d $image -e -s '[0.0.0.0]:8080' -t 'spiped_test_d:8080'
-  - "docker run --name spiped_test_curl -i --rm --link spiped_test_e:spiped_test_e buildpack-deps:curl curl -fsSL -H 'Host: example.com' http://spiped_test_e:8080 |grep '<h1>Example Domain</h1>'"
+  - "docker build -t $image ${VERSION}${VARIANT:+/$VARIANT}"
+  - "docker run --name spiped_generate_key      -v $(pwd):/spiped/key                                                               $image spiped-generate-key.sh"
+  - "docker run --name spiped_test_d       -d   -v $(pwd)/spiped-keyfile:/spiped/key:ro                                             $image -d -s '[0.0.0.0]:8080' -t 'example.com:80'"
+  - "docker run --name spiped_test_e       -d   -v $(pwd)/spiped-keyfile:/spiped/key:ro -p 80:80 --link spiped_test_d:spiped_test_d $image -e -s '[0.0.0.0]:80'   -t 'spiped_test_d:8080'"
+  - "docker run --name spiped_test_curl    --link spiped_test_e:spiped_test_e buildpack-deps:curl curl -v -fsSL --resolve example.com:80:$(docker inspect -f '{{.NetworkSettings.IPAddress}}' spiped_test_e) http://example.com |grep '<h1>Example Domain</h1>'"
 
 after_script:
   - docker ps -a
