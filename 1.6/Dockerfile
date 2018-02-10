@@ -3,7 +3,9 @@ FROM debian:stretch
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
 
-RUN	apt-get update \
+RUN	DEBIAN_FRONTEND="noninteractive" \
+&&	set -x \
+&&	apt-get update \
 &&	apt-get install -y libssl1.1 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
 
