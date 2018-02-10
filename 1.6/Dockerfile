@@ -1,4 +1,4 @@
-FROM debian:stretch
+FROM debian:stretch-slim
 
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
