@@ -1,9 +1,9 @@
-FROM alpine:3.8
+FROM alpine:3.9
 
 RUN	addgroup -S spiped \
 &&	adduser -S -G spiped spiped
 
-RUN	apk add --no-cache libssl1.0
+RUN	apk add --no-cache libssl1.1
 
 ENV SPIPED_VERSION 1.6.0
 ENV SPIPED_DOWNLOAD_URL https://www.tarsnap.com/spiped/spiped-1.6.0.tgz
