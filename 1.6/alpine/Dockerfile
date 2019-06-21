@@ -1,4 +1,4 @@
-FROM alpine:3.9
+FROM alpine:3.10
 
 RUN	addgroup -S spiped \
 &&	adduser -S -G spiped spiped
