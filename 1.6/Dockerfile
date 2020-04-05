@@ -9,11 +9,11 @@ RUN	DEBIAN_FRONTEND="noninteractive" \
 &&	apt-get install -y libssl1.1 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
 
-ENV SPIPED_VERSION 1.6.0
-ENV SPIPED_DOWNLOAD_URL https://www.tarsnap.com/spiped/spiped-1.6.0.tgz
-ENV SPIPED_DOWNLOAD_SHA256 e6f7f8f912172c3ad55638af8346ae7c4ecaa92aed6d3fb60f2bda4359cba1e4
+ENV SPIPED_VERSION 1.6.1
+ENV SPIPED_DOWNLOAD_URL https://www.tarsnap.com/spiped/spiped-1.6.1.tgz
+ENV SPIPED_DOWNLOAD_SHA256 8d7089979db79a531a0ecc507b113ac6f2cf5f19305571eff1d3413e0ab33713
 
-RUN	DEBIAN_FRONTEND="noninteractive" \
+RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \
 &&	buildDeps='libssl-dev libc-dev gcc make curl ca-certificates' \
 &&	apt-get update && apt-get install -y $buildDeps --no-install-recommends \
