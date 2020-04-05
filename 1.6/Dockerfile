@@ -13,7 +13,7 @@ ENV SPIPED_VERSION 1.6.1
 ENV SPIPED_DOWNLOAD_URL https://www.tarsnap.com/spiped/spiped-1.6.1.tgz
 ENV SPIPED_DOWNLOAD_SHA256 8d7089979db79a531a0ecc507b113ac6f2cf5f19305571eff1d3413e0ab33713
 
-RUN	DEBIAN_FRONTEND="noninteractive" \
+RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \
 &&	buildDeps='libssl-dev libc-dev gcc make curl ca-certificates' \
 &&	apt-get update && apt-get install -y $buildDeps --no-install-recommends \
