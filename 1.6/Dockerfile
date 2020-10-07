@@ -3,7 +3,7 @@ FROM debian:buster-slim
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
 
-RUN	DEBIAN_FRONTEND="noninteractive" \
+RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \
 &&	apt-get update \
 &&	apt-get install -y libssl1.1 --no-install-recommends \
