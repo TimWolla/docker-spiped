@@ -16,7 +16,8 @@ ENV SPIPED_DOWNLOAD_SHA256 8d7089979db79a531a0ecc507b113ac6f2cf5f19305571eff1d34
 RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \
 &&	buildDeps='libssl-dev libc-dev gcc make curl ca-certificates' \
-&&	apt-get update && apt-get install -y $buildDeps --no-install-recommends \
+&&	apt-get update \
+&&	apt-get install -y $buildDeps --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/* \
 &&	curl -fsSL "$SPIPED_DOWNLOAD_URL" -o spiped.tar.gz \
 &&	echo "$SPIPED_DOWNLOAD_SHA256 spiped.tar.gz" |sha256sum -c - \
