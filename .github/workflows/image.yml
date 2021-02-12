@@ -1,0 +1,42 @@
+name: Build Docker Image
+
+on:
+- push
+- pull_request
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        variant:
+        - "1.6"
+        - "1.6/alpine"
+    steps:
+    - uses: actions/checkout@v1
+    - name: Build the image.
+      id: build
+      run: |
+        printf "::group::Sending context\n"
+        IMAGE=spiped:${VARIANT/\//-}-$(date +%s)
+        docker build "$VARIANT" --tag "$IMAGE" |sed 's/^Step/::endgroup::\n::group::Step/'
+        printf "::endgroup::\n"
+        printf "::set-output name=%s::%s\n" "image" "$IMAGE"
+      env:
+        VARIANT: ${{ matrix.variant }}
+    - name: Generate Keyfile.
+      run: docker run --name spiped_generate_key -v $(pwd):/spiped/key ${{ steps.build.outputs.image }} spiped-generate-key.sh
+    - name: Start the decrypting spiped.
+      run: docker run --name spiped_test_d -d -v $(pwd)/spiped-keyfile:/spiped/key:ro                                             ${{ steps.build.outputs.image }} -d -s '[0.0.0.0]:8080' -t 'example.com:80'
+    - name: Start the encrypting spiped.
+      run: docker run --name spiped_test_e -d -v $(pwd)/spiped-keyfile:/spiped/key:ro -p 80:80 --link spiped_test_d:spiped_test_d ${{ steps.build.outputs.image }} -e -s '[0.0.0.0]:80' -t 'spiped_test_d:8080'
+    - name: Send request through spiped.
+      run: docker run --name spiped_test_curl --link spiped_test_e:spiped_test_e buildpack-deps:curl curl -v -fsSL --connect-to '::spiped_test_e:' http://example.com |grep '<h1>Example Domain</h1>'
+    - name: Show Containers and Images
+      run: |
+        printf "::group::docker ps -a\n"
+        docker ps -a
+        printf "::endgroup::\n"
+        printf "::group::docker images\n"
+        docker images
+        printf "::endgroup::\n"
