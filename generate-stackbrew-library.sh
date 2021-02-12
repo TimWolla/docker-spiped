@@ -66,7 +66,7 @@ join() {
 for version in "${versions[@]}"; do
 	commit="$(dirCommit "$version")"
 
-	fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "ENV" && $2 == "SPIPED_VERSION" { print $3; exit }')"
+	fullVersion="$(git show "$commit":"$version/Dockerfile" | awk '$1 == "ENV" { for(i = 2; i <= NF; i++) { if ($i ~ /^SPIPED_VERSION/) { split($i,kv,/=/); print kv[2]; exit } } }')"
 
 	versionAliases=(
 		$fullVersion
