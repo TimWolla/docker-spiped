@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:bullseye-slim
 
 RUN	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
