@@ -5,7 +5,7 @@ RUN	addgroup -S spiped \
 
 RUN	apk add --no-cache libssl1.1
 
-ENV SPIPED_VERSION=1.6.1 SPIPED_DOWNLOAD_SHA256=8d7089979db79a531a0ecc507b113ac6f2cf5f19305571eff1d3413e0ab33713
+ENV	SPIPED_VERSION=1.6.2 SPIPED_DOWNLOAD_SHA256=05d4687d12d11d7f9888d43f3d80c541b7721c987038d085f71c91bb06204567
 
 RUN	set -x \
 &&	apk add --no-cache --virtual .build-deps \
