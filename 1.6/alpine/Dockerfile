@@ -24,7 +24,7 @@ RUN	set -x \
 &&	CC=gcc make -C /usr/local/src/spiped \
 &&	make -C /usr/local/src/spiped install \
 &&	rm -rf /usr/local/src/spiped \
-&&	apk del .build-deps
+&&	apk del --no-network .build-deps
 
 VOLUME /spiped
 WORKDIR /spiped
