@@ -19,11 +19,11 @@ RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	apt-get install -y $buildDeps --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/* \
 &&	curl -fsSL "https://www.tarsnap.com/spiped/spiped-$SPIPED_VERSION.tgz" -o spiped.tar.gz \
-&&	echo "$SPIPED_DOWNLOAD_SHA256 spiped.tar.gz" |sha256sum -c - \
+&&	echo "$SPIPED_DOWNLOAD_SHA256 *spiped.tar.gz" |sha256sum -c - \
 &&	mkdir -p /usr/local/src/spiped \
 &&	tar xzf "spiped.tar.gz" -C /usr/local/src/spiped --strip-components=1 \
 &&	rm "spiped.tar.gz" \
-&&	make -C /usr/local/src/spiped \
+&&	CC=gcc make -C /usr/local/src/spiped \
 &&	make -C /usr/local/src/spiped install \
 &&	rm -rf /usr/local/src/spiped \
 &&	apt-get purge -y --auto-remove $buildDeps
