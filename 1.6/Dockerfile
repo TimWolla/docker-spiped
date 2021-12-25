@@ -1,6 +1,7 @@
 FROM debian:bullseye-slim
 
-RUN	groupadd -r spiped \
+RUN	set -x \
+&&	groupadd -r spiped \
 &&	useradd -r -g spiped spiped
 
 RUN	export DEBIAN_FRONTEND="noninteractive" \

@@ -1,6 +1,7 @@
 FROM alpine:3.14
 
-RUN	addgroup -S spiped \
+RUN	set -x \
+&&	addgroup -S spiped \
 &&	adduser -S -G spiped spiped
 
 RUN	apk add --no-cache libssl1.1
