@@ -54,6 +54,7 @@ cat <<-EOH
 
 Maintainers: Tim Düsterhus <tim@bastelstu.be> (@TimWolla)
 GitRepo: https://github.com/TimWolla/docker-spiped.git
+GitFetch: refs/heads/main
 EOH
 
 # prints "$2$1$3$1...$N"
