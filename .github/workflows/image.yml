@@ -21,7 +21,7 @@ jobs:
         IMAGE=spiped:${VARIANT/\//-}-$(date +%s)
         docker build "$VARIANT" --tag "$IMAGE" |sed 's/^Step/::endgroup::\n::group::Step/'
         printf "::endgroup::\n"
-        printf "::set-output name=%s::%s\n" "image" "$IMAGE"
+        printf "%s=%s\n" "image" "$IMAGE" >> $GITHUB_OUTPUT
       env:
         VARIANT: ${{ matrix.variant }}
     - name: Generate Keyfile.
