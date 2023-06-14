@@ -1,4 +1,4 @@
-FROM debian:bullseye-slim
+FROM debian:bookworm-slim
 
 RUN	set -x \
 &&	groupadd -r spiped \
@@ -7,7 +7,7 @@ RUN	set -x \
 RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \
 &&	apt-get update \
-&&	apt-get install -y libssl1.1 --no-install-recommends \
+&&	apt-get install -y libssl3 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
 
 ENV	SPIPED_VERSION=1.6.2 SPIPED_DOWNLOAD_SHA256=05d4687d12d11d7f9888d43f3d80c541b7721c987038d085f71c91bb06204567
