@@ -1,10 +1,10 @@
-FROM alpine:3.18
+FROM alpine:3.20
 
 RUN	set -x \
 &&	addgroup -S spiped \
 &&	adduser -S -G spiped spiped
 
-RUN	apk add --no-cache libssl1.1
+RUN	apk add --no-cache libssl3
 
 ENV	SPIPED_VERSION=1.6.2 SPIPED_DOWNLOAD_SHA256=05d4687d12d11d7f9888d43f3d80c541b7721c987038d085f71c91bb06204567
 
