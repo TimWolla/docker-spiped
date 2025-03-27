@@ -10,7 +10,7 @@ RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	apt-get install -y libssl3 --no-install-recommends \
 &&	rm -rf /var/lib/apt/lists/*
 
-ENV	SPIPED_VERSION=1.6.3 SPIPED_DOWNLOAD_SHA256=70c53070dbbb10d1442754aeafb01b08ec829203d41023647dbf1a1435ee4a65
+ENV	SPIPED_VERSION=1.6.3.99 SPIPED_DOWNLOAD_SHA256=5f7da4bdfc4528ac6812b7ca741689ba1438e998f257518da3a2d2479b94b4fd
 
 RUN	export DEBIAN_FRONTEND="noninteractive" \
 &&	set -x \

@@ -6,7 +6,7 @@ RUN	set -x \
 
 RUN	apk add --no-cache libssl3
 
-ENV	SPIPED_VERSION=1.6.3 SPIPED_DOWNLOAD_SHA256=70c53070dbbb10d1442754aeafb01b08ec829203d41023647dbf1a1435ee4a65
+ENV	SPIPED_VERSION=1.6.3.99 SPIPED_DOWNLOAD_SHA256=5f7da4bdfc4528ac6812b7ca741689ba1438e998f257518da3a2d2479b94b4fd
 
 RUN	set -x \
 &&	apk add --no-cache --virtual .build-deps \
